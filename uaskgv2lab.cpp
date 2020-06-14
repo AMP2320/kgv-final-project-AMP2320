@@ -15,13 +15,11 @@ double a = 7, b = 4, c = 5;
 double direction = -1; double temp, temp2;
 double r1 = 1, r2 = 1.5, r3 = 0.4;
 
-// A camera.  It moves horizontally in a circle centered at the origin of
-// radius 10.  It moves vertically straight up and down.
 class Camera {
-    double theta;      // determines the x and z positions
-    double y;          // the current y position
-    double dTheta;     // increment in theta for swinging the camera around
-    double dy;         // increment in y for moving the camera up/down
+    double theta;      
+    double y;          
+    double dTheta;     
+    double dy;         
 public:
     Camera() : theta(0), y(3), dTheta(0.04), dy(0.2) {}
     double getX() { return 10 * cos(theta); }
@@ -33,10 +31,6 @@ public:
     void moveDown() { if (y > dy) y -= dy; }
 };
 
-// A ball.  A ball has a radius, a color, and bounces up and down between
-// a maximum height and the xz plane.  Therefore its x and z coordinates
-// are fixed.  It uses a lame bouncing algorithm, simply moving up or
-// down by 0.05 units at each frame.
 
 void Ball(double r, double h, double x, double z) {
     glPushMatrix();
@@ -46,12 +40,10 @@ void Ball(double r, double h, double x, double z) {
 }
 
 
-// Global variables: a camera, a checkerboard and some balls.
+
 Camera camera;
 
 
-// Application-specific initialization: Set up global lighting parameters
-// and create display lists.
 void init() {
     glEnable(GL_DEPTH_TEST);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, WHITE);
@@ -64,8 +56,7 @@ void init() {
 
 }
 
-// Draws one frame, the checkerboard then the balls, from the current camera
-// position.
+
 void display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glPushMatrix();
@@ -85,7 +76,7 @@ void display() {
     glutSwapBuffers();
 }
 
-// On reshape, constructs a camera that perfectly fits the window.
+
 void reshape(GLint w, GLint h) {
     glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
@@ -94,14 +85,13 @@ void reshape(GLint w, GLint h) {
     glMatrixMode(GL_MODELVIEW);
 }
 
-// Requests to draw the next frame.
+
 void timer(int v) {
     glutPostRedisplay();
     glutTimerFunc(1000 / 60, timer, v);
 }
 
-// Moves the camera according to the key pressed, then ask to refresh the
-// display.
+
 void special(int key, int, int) {
     switch (key) {
     case GLUT_KEY_LEFT: camera.moveLeft(); break;
@@ -141,7 +131,7 @@ void keyboard1(unsigned char key, int x, int y)
     }
 }
 
-// Initializes GLUT and enters the main loop.
+
 int main(int argc, char** argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
